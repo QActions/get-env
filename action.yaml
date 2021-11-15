@@ -1,0 +1,32 @@
+name: "Get environment"
+description: "Returns the environment in which a calling workflow is running"
+inputs:
+  ref:
+    description: "The git reference (github.ref)"
+    required: false
+    default: ${{ github.ref }}
+
+runs:
+  using: composite
+  steps:
+    - name: Get environment
+      id: get-env
+      run: |
+        if [[ ${{ inputs.ref }} == "refs/heads/master" ]]; then
+          echo "::set-output name=environmentname::production"
+          echo "Returned production environment!"
+        fi
+        if [[ ${{ inputs.ref }} == "refs/heads/dev" ]]; then
+          echo "::set-output name=environmentname::development"
+          echo "Returned development environment!"
+        fi
+        if [[ ${{ inputs.ref }} == "refs/heads/staging" ]]; then
+          echo "::set-output name=environmentname::staging"
+          echo "Returned staging environment!"
+        fi
+      shell: sh
+
+outputs:
+  environmentname:
+    description: "The current environment"
+    value: ${{ steps.getenv.outputs.environmentname }}
