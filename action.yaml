@@ -12,15 +12,15 @@ runs:
     - name: Get environment
       id: get-env
       run: |
-        if [[ ${{ inputs.ref }} == "refs/heads/master" ]]; then
+        if [[ "${{ inputs.ref }}" == "refs/heads/master" ]]; then
           echo "::set-output name=environmentname::production"
           echo "Returned production environment!"
         fi
-        if [[ ${{ inputs.ref }} == "refs/heads/dev" ]]; then
+        if [[ "${{ inputs.ref }}" == "refs/heads/dev" ]]; then
           echo "::set-output name=environmentname::development"
           echo "Returned development environment!"
         fi
-        if [[ ${{ inputs.ref }} == "refs/heads/staging" ]]; then
+        if [[ "${{ inputs.ref }}" == "refs/heads/staging" ]]; then
           echo "::set-output name=environmentname::staging"
           echo "Returned staging environment!"
         fi
