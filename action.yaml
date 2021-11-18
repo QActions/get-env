@@ -29,4 +29,4 @@ runs:
 outputs:
   environmentname:
     description: "The current environment"
-    value: ${{ steps.getenv.outputs.environmentname }}
+    value: ${{ steps.get-env.outputs.environmentname }}
