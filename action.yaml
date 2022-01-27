@@ -12,13 +12,19 @@ runs:
     - name: Get environment
       id: get-env
       run: |
-        valid='refs\/heads(\/v\d.*)?\/master'
-        if [[ "${{ inputs.ref }}" == "refs/heads/main" || "${{ inputs.ref }}" =~ [^$valid] ]]; then
+        prodregex='^refs\/heads(\/v\d.*)?\/(master|main)$'
+        stagingregex='refs\/heads(\/v\d.*)?\/(staging|stage)'
+        releaseregex='refs\/heads(\/v\d.*)?\/(release)'
+
+        if [[ "${{ inputs.ref }}" =~ $prodregex ]]; then
           echo "::set-output name=environmentname::production"
           echo "Returned production environment!"
-        elif [[ "${{ inputs.ref }}" == "refs/heads/staging" || "${{ inputs.ref }}" == "refs/heads/stage" || "${{ inputs.ref }}" =~ ^refs\/heads(\/v\d.*)?\/staging$ ]]; then
+        elif [["${{ inputs.ref }}" =~ [^$stagingregex] ]]; then
           echo "::set-output name=environmentname::staging"
           echo "Returned staging environment!"
+        elif [["${{ inputs.ref }}" =~ [^$releaseregex] ]]; then
+          echo "::set-output name=environmentname::release"
+          echo "Returned release environment!"
         else
           echo "::set-output name=environmentname::development"
           echo "Returned development environment!"
