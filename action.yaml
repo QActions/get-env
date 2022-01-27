@@ -16,7 +16,7 @@ runs:
         stagingregex='refs\/heads(\/v\d.*)?\/(staging|stage)'
         releaseregex='refs\/heads(\/v\d.*)?\/(release)'
 
-        if [[ "${{ inputs.ref }}" =~ ${prodregex} ]]; then
+        if [[ "${{ inputs.ref }}" =~ [$prodregex] ]]; then
           echo "::set-output name=environmentname::production"
           echo "Returned production environment!"
         elif [["${{ inputs.ref }}" =~ [^$stagingregex] ]]; then
