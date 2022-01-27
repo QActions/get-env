@@ -13,7 +13,7 @@ runs:
       id: get-env
       run: |
         valid='refs\/heads(\/v\d.*)?\/master'
-        if [[ "${{ inputs.ref }}" == "refs/heads/master" || "${{ inputs.ref }}" == "refs/heads/main" || "${{ inputs.ref }}" =~ [^valid] ]]; then
+        if [[ "${{ inputs.ref }}" == "refs/heads/main" || "${{ inputs.ref }}" =~ [^$valid] ]]; then
           echo "::set-output name=environmentname::production"
           echo "Returned production environment!"
         elif [[ "${{ inputs.ref }}" == "refs/heads/staging" || "${{ inputs.ref }}" == "refs/heads/stage" || "${{ inputs.ref }}" =~ ^refs\/heads(\/v\d.*)?\/staging$ ]]; then
