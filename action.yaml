@@ -16,13 +16,13 @@ runs:
         stagingRegex='refs\/heads(\/v\d.*)?\/(staging|stage)'
         releaseRegex='refs\/heads(\/v\d.*)?\/(release)'
 
-        if [[ "${{ inputs.ref }}" =~ [^prodRegex] ]]; then
+        if [[ "${{ inputs.ref }}" =~ [^$prodRegex] ]]; then
           echo "::set-output name=environmentname::production"
           echo "Returned production environment!"
-        elif [["${{ inputs.ref }}" =~ [^stagingRegex] ]]; then
+        elif [["${{ inputs.ref }}" =~ [^$stagingRegex] ]]; then
           echo "::set-output name=environmentname::staging"
           echo "Returned staging environment!"
-        elif [["${{ inputs.ref }}" =~ [^releaseRegex] ]]; then
+        elif [["${{ inputs.ref }}" =~ [^$releaseRegex] ]]; then
           echo "::set-output name=environmentname::release"
           echo "Returned release environment!"
         else
