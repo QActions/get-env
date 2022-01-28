@@ -1,0 +1,12 @@
+{
+  "name": "get-env",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:QActions/get-env.git",
+  "author": "arnedubois <arne.dubois@extrahorizon.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^5.0.0"
+  }
+}

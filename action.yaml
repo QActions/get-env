@@ -7,31 +7,9 @@ inputs:
     default: ${{ github.ref }}
 
 runs:
-  using: composite
-  steps:
-    - name: Get environment
-      id: get-env
-      run: |
-        prodRegex='refs\/heads(\/v\d.*)?\/(master|main)'
-        stagingRegex='refs\/heads(\/v\d.*)?\/(staging|stage)'
-        releaseRegex='refs\/heads(\/v\d.*)?\/(release)'
-
-        if [[ "${{ inputs.ref }}" =~ [^$prodRegex] ]]; then
-          echo "::set-output name=environmentname::production"
-          echo "Returned production environment!"
-        elif [["${{ inputs.ref }}" =~ [^$stagingRegex] ]]; then
-          echo "::set-output name=environmentname::staging"
-          echo "Returned staging environment!"
-        elif [["${{ inputs.ref }}" =~ [^$releaseRegex] ]]; then
-          echo "::set-output name=environmentname::release"
-          echo "Returned release environment!"
-        else
-          echo "::set-output name=environmentname::development"
-          echo "Returned development environment!"
-        fi
-      shell: bash
+  using: 'node16'
+  main: 'index.js'
 
 outputs:
   environmentname:
     description: "The current environment"
-    value: ${{ steps.get-env.outputs.environmentname }}
