@@ -1,15 +1,10 @@
-name: "Get environment"
-description: "Returns the environment in which a calling workflow is running"
-inputs:
-  ref:
-    description: "The git reference (github.ref)"
-    required: false
-    default: ${{ github.ref }}
+name: "Get the deployment environment"
+description: "Returns the deployment environment in which a calling workflow should be running"
 
 runs:
   using: 'node16'
-  main: 'index.js'
+  main: 'dist/index.js'
 
 outputs:
-  environmentname:
+  running-environment:
     description: "The current environment"

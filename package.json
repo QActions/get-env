@@ -1,13 +1,26 @@
 {
   "name": "get-env",
-  "version": "0.1.0",
-  "main": "index.js",
-  "repository": "git@github.com:QActions/get-env.git",
+  "version": "1.0.0",
+  "private": true,
+  "main": "lib/main.js",
+  "description": "Action that returns the current environment to the calling workflow",
+  "license": "UNLICENSED",
   "author": "Qompium",
-  "license": "MIT",
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "buildAndPackage": "yarn build && yarn package",
+    "lint": "eslint src/**/*.ts",
+    "package": "ncc build --source-map --license licenses.txt",
+    "test": "jest",
+    "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QActions/get-env.git"
+  },
   "dependencies": {
-    "@actions/core": "^1.6.0",
-    "@actions/github": "^5.0.0"
+    "@actions/core": "^1.9.0",
+    "@actions/github": "^5.0.3"
   },
   "devDependencies": {
     "@qompium/eslint-config-q-node": "^1.5.0",

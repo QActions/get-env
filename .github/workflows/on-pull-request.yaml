@@ -1,0 +1,43 @@
+name: pull-request
+
+on:
+  pull_request:
+    branches:
+      - master
+      - dev
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          cache: "yarn"
+
+      - name: Prepare npmrc
+        uses: QActions/prepare-npmrc@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PACKAGES_FULL_READ_ACCESS_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Install dependencies
+        run: |
+          yarn
+        shell: bash
+
+      - name: lint
+        run: |
+          yarn lint
+        shell: bash
+
+      - name: Test
+        run: |
+          yarn test
+        shell: bash
