@@ -1,6 +1,38 @@
 require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 3109:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getEnvironmentFromRef = void 0;
+const tslib_1 = __nccwpck_require__(4351);
+const core = tslib_1.__importStar(__nccwpck_require__(2186));
+const github = tslib_1.__importStar(__nccwpck_require__(5438));
+const config_1 = __nccwpck_require__(6373);
+const getEnvironmentFromRef = (ref) => {
+    for (const deployment of Object.keys(config_1.environments)) {
+        if (config_1.environments[deployment].matchingRegex.test(ref)) {
+            return deployment;
+        }
+    }
+    return undefined;
+};
+exports.getEnvironmentFromRef = getEnvironmentFromRef;
+const runAction = () => {
+    var _a;
+    const environment = (_a = (0, exports.getEnvironmentFromRef)(github.context.ref)) !== null && _a !== void 0 ? _a : config_1.defaultEnvironment;
+    core.setOutput('running-environment', environment);
+    core.exportVariable('ENVIRONMENT', environment);
+    core.info(`The current workflow is running on ${environment} deployment environment`);
+};
+runAction();
+
+
+/***/ }),
+
 /***/ 7351:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -9313,37 +9345,13 @@ module.exports = JSON.parse('[[[0,44],"disallowed_STD3_valid"],[[45,46],"valid"]
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
-(() => {
-"use strict";
-var exports = __webpack_exports__;
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const tslib_1 = __nccwpck_require__(4351);
-const core = tslib_1.__importStar(__nccwpck_require__(2186));
-const github = tslib_1.__importStar(__nccwpck_require__(5438));
-const config_1 = __nccwpck_require__(6373);
-const getEnvironmentFromRef = (ref) => {
-    for (const deployment of Object.keys(config_1.environments)) {
-        if (config_1.environments[deployment].matchingRegex.test(ref)) {
-            return deployment;
-        }
-    }
-    return undefined;
-};
-const runAction = () => {
-    var _a;
-    const environment = (_a = getEnvironmentFromRef(github.context.ref)) !== null && _a !== void 0 ? _a : config_1.defaultEnvironment;
-    core.setOutput('running-environment', environment);
-    core.exportVariable('ENVIRONMENT', environment);
-    core.info(`The current workflow is running on ${environment} deployment environment`);
-};
-runAction();
-
-})();
-
-module.exports = __webpack_exports__;
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __nccwpck_require__(3109);
+/******/ 	module.exports = __webpack_exports__;
+/******/ 	
 /******/ })()
 ;
 //# sourceMappingURL=index.js.map
