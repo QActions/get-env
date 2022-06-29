@@ -9321,8 +9321,8 @@ var exports = __webpack_exports__;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __nccwpck_require__(4351);
-const core_1 = tslib_1.__importDefault(__nccwpck_require__(2186));
-const github_1 = tslib_1.__importDefault(__nccwpck_require__(5438));
+const core = tslib_1.__importStar(__nccwpck_require__(2186));
+const github = tslib_1.__importStar(__nccwpck_require__(5438));
 const config_1 = __nccwpck_require__(6373);
 const getEnvironmentFromRef = (ref) => {
     for (const deployment of Object.keys(config_1.environments)) {
@@ -9334,10 +9334,10 @@ const getEnvironmentFromRef = (ref) => {
 };
 const runAction = () => {
     var _a;
-    const environment = (_a = getEnvironmentFromRef(github_1.default.context.ref)) !== null && _a !== void 0 ? _a : config_1.defaultEnvironment;
-    core_1.default.setOutput('running-environment', environment);
-    core_1.default.exportVariable('ENVIRONMENT', environment);
-    core_1.default.info(`The current workflow is running on ${environment} deployment environment`);
+    const environment = (_a = getEnvironmentFromRef(github.context.ref)) !== null && _a !== void 0 ? _a : config_1.defaultEnvironment;
+    core.setOutput('running-environment', environment);
+    core.exportVariable('ENVIRONMENT', environment);
+    core.info(`The current workflow is running on ${environment} deployment environment`);
 };
 runAction();
 
