@@ -2,7 +2,7 @@ import * as core from '@actions/core';
 import * as github from '@actions/github';
 import { defaultEnvironment, environments } from 'config';
 
-const getEnvironmentFromRef = (ref: string) => {
+export const getEnvironmentFromRef = (ref: string) => {
   for (const deployment of Object.keys(environments)) {
     if (environments[deployment].matchingRegex.test(ref)) {
       return deployment;
