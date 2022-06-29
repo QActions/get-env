@@ -1,0 +1,53 @@
+name: Check dist/
+
+on:
+  push:
+    branches:
+      - master
+      - dev
+    paths-ignore:
+      - '**.md'
+  pull_request:
+     paths-ignore:
+       - '**.md'
+  workflow_dispatch:
+
+jobs:
+  check-dist:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Prepare npmrc
+        uses: QActions/prepare-npmrc@v1.0.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PACKAGES_FULL_READ_ACCESS_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_PACKAGES_FULL_READ_ACCESS_TOKEN }}
+
+      - name: Set Node.js 16.x
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version: 16.x
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Rebuild the dist/ directory
+        run: |
+          yarn buildAndPackage
+
+      - name: Compare the expected and actual dist/ directories
+        run: |
+          if [ "$(git diff --ignore-space-at-eol -- . ":(exclude)dist/index.js.map" dist/ | wc -l)" -gt "0" ]; then
+            echo "Detected uncommitted changes after build.  See status below:"
+            git diff
+            exit 1
+          fi
+        id: diff
+
+      - uses: actions/upload-artifact@v2
+        if: ${{ failure() && steps.diff.conclusion == 'failure' }}
+        with:
+          name: dist
+          path: dist/

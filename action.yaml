@@ -1,0 +1,10 @@
+name: "Get the deployment environment"
+description: "Returns the deployment environment in which a calling workflow should be running"
+
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
+
+outputs:
+  running-environment:
+    description: "The current environment"

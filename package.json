@@ -1,0 +1,38 @@
+{
+  "name": "get-env",
+  "version": "1.0.0",
+  "private": true,
+  "main": "lib/main.js",
+  "description": "Action that returns the current environment to the calling workflow",
+  "license": "UNLICENSED",
+  "author": "Qompium",
+  "scripts": {
+    "build": "tsc --project tsconfig.build.json",
+    "buildAndPackage": "yarn build && yarn package",
+    "lint": "eslint src/**/*.ts",
+    "package": "ncc build --source-map --license licenses.txt",
+    "test": "jest",
+    "all": "npm run build && npm run format && npm run lint && npm run package && npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QActions/get-env.git"
+  },
+  "dependencies": {
+    "@actions/core": "^1.9.0",
+    "@actions/github": "^5.0.3"
+  },
+  "devDependencies": {
+    "@qompium/eslint-config-q-node": "^1.5.0",
+    "@types/jest": "^28.1.3",
+    "@types/node": "^18.0.0",
+    "@typescript-eslint/parser": "^5.30.0",
+    "@vercel/ncc": "^0.34.0",
+    "eslint": "^8.18.0",
+    "eslint-plugin-github": "^4.3.6",
+    "eslint-plugin-jest": "^26.5.3",
+    "jest": "^28.1.2",
+    "ts-jest": "^28.0.5",
+    "typescript": "^4.7.4"
+  }
+}
